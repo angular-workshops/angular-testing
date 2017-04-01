@@ -11,18 +11,16 @@ import { HeroDetailComponent } from './hero-detail.component';
 describe('HeroDetailComponent (shallow tests)', () => {
   let fixture: ComponentFixture<HeroDetailComponent>;
   let component: HeroDetailComponent;
-  let element,  mockHeroService;
+  let element,  mockHeroService, mockActiveRoute, mockLocation;
   const heroes = [
     {id: 3, name: 'Magneta', strength: 4},
     {id: 4, name: 'Dynama', strength: 2}
   ];
 
   beforeEach(async(() => {
-    const mockActiveRoute = {params: observableOf([{id: '3'}]) };
-    const mockLocation = { back: () => {} };
-    mockHeroService = { getHero: () => {}, update: () => {} };
-    spyOn(mockHeroService, 'getHero').and.returnValue(Promise.resolve(heroes[0]));
-    spyOn(mockHeroService, 'update').and.returnValue(Promise.resolve());
+    mockActiveRoute = {params: observableOf([{id: '3'}]) };
+    mockLocation = { back: () => {} };
+    mockHeroService = { getHero: () => { return Promise.resolve(heroes[0]); }, update: () => {} };
 
     TestBed.configureTestingModule({
       declarations: [
@@ -89,7 +87,7 @@ describe('HeroDetailComponent (shallow tests)', () => {
     }));
 
 
-    it(`should change the hero's name (via nativeElement API)`, fakeAsync(() => {
+    it(`should change the hero's name (via nativeElement API)`, () => {
       const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
 
       inputElement.value = 'Mr. Nice';
@@ -97,7 +95,7 @@ describe('HeroDetailComponent (shallow tests)', () => {
       fixture.detectChanges();
 
       expect(getHeadingText(fixture)).toContain('Mr. Nice');
-    }));
+    });
 
 
     it(`should change the hero's name (via debugElement API)`, () => {
@@ -109,6 +107,11 @@ describe('HeroDetailComponent (shallow tests)', () => {
       expect(getHeadingText(fixture)).toContain('Mr. Nice');
     });
   });
+
+   describe('clicking save', () => {
+     it(`should update the hero service`);
+     it(`should navigate back`);
+   });
 });
 
 function createEvent(eventName: string, bubbles = false, cancelable = false) {

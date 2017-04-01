@@ -12,9 +12,11 @@ import { InMemoryDataService } from './shared/in-memory-data.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
+import { HeroComponent } from './heroes/hero/hero.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroService } from './shared/hero.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { ExponentialStrengthPipe } from './exponential-strength.pipe/exponential-strength.pipe';
 
 @NgModule({
   imports: [
@@ -29,7 +31,9 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     DashboardComponent,
     HeroDetailComponent,
     HeroesComponent,
-    HeroSearchComponent
+    HeroComponent,
+    HeroSearchComponent,
+    ExponentialStrengthPipe
   ],
   providers: [ HeroService ],
   bootstrap: [ AppComponent ]
