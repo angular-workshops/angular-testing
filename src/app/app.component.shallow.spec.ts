@@ -21,4 +21,6 @@ describe('AppComponent (shallow tests)', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('h1').textContent).toContain('Tour of Heroes');
   });
+
+  it('should show a navigation panel with links to views');
 });
