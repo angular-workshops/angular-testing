@@ -2,7 +2,7 @@ import { Customer } from './customer';
 import { Order } from './order';
 
 describe('Order', () => {
-  let order, customer;
+  let order: Order, customer: Customer;
 
   beforeEach(() => {
     customer = new Customer();
