@@ -19,7 +19,12 @@ describe('HeroSearchService', () => {
   let heroes: Hero[];
 
   beforeEach(() => {
-    heroes = [ {id: 2, name: 'Rubberman'}, {id: 4, name: 'Dynama'} ];
+    heroes = [
+      {id: 11, name: 'Mr. Nice', strength: 10, age: 15},
+      {id: 12, name: 'Narco', strength: 5, age: 20},
+      {id: 13, name: 'Bombasto', strength: 8, age: 23},
+      {id: 14, name: 'Celeritas', strength: 15, age: 30},
+    ];
     injector = ReflectiveInjector.resolveAndCreate([
       { provide: Http, useClass: MockHttp },
       HeroSearchService,
