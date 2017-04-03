@@ -16,23 +16,18 @@ class TestHostComponent {
 describe('HeroComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestHostComponent, HeroComponent]
     });
-    fixture = TestBed.createComponent(TestHostComponent);
-  }));
+  });
 
-  it('should display the hero passed in as the hero input', () => {
-    fixture.componentInstance.hero = { id: 121, name: 'Mr Hero', strength: 4, age: 24 };
+  it('should work with all the attributes bound', async(() => {
+    fixture = TestBed.createComponent(TestHostComponent);
+    fixture.componentInstance.hero = { id: 121, name: 'Mr Hero', strength: 4, age: 30 };
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('121');
     expect(fixture.nativeElement.textContent).toContain('Mr Hero');
-  });
-
-  it('should trigger the delete output when the X button is clicked', () => {
-    fixture.componentInstance.hero = { id: 121, name: 'Mr Hero', strength: 4, age: 24 };
-    fixture.detectChanges();
 
     const button = fixture.debugElement.query(By.css('button'));
     const stopPropagationSpy = jasmine.createSpy('stopPropagation');
@@ -43,5 +38,13 @@ describe('HeroComponent', () => {
     expect(deleteClickSpy).toHaveBeenCalled();
 
     expect(stopPropagationSpy).toHaveBeenCalled();
-  });
+  }));
+
+  it('should error if no hero property bound', async(() => {
+    TestBed.overrideComponent(TestHostComponent, {
+      set: { template: `<app-hero></app-hero>` }
+    });
+    fixture = TestBed.createComponent(TestHostComponent);
+    expect(() => fixture.detectChanges()).toThrowError(`Cannot read property 'id' of undefined`);
+  }));
 });

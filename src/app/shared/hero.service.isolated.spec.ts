@@ -9,7 +9,10 @@ describe('HeroService', () => {
     let mockHttp: any;
 
     beforeEach(() => {
-      heroes = [ {id: 2, name: 'Rubberman'}, {id: 4, name: 'Dynama'} ];
+      heroes = [
+        {id: 2, name: 'Rubberman', strength: 1, age: 20},
+        {id: 4, name: 'Dynama', strength: 11, age: 26},
+      ];
       mockResponse = {
         toPromise() {
           return Promise.resolve({ json: () => ({ data: heroes }) });
