@@ -55,5 +55,11 @@ describe('HeroDetailComponent (deep tests)', () => {
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
   });
 
-  it('should select the hero when the hero is clicked');
+  it('should select the hero when the hero is clicked', () => {
+    const heroComponents = fixture.debugElement.queryAll(By.directive(HeroComponent));
+    spyOn(fixture.componentInstance, 'onSelect').and.callThrough();
+    heroComponents[0].nativeElement.click();
+    expect(fixture.componentInstance.onSelect).toHaveBeenCalledWith(HEROES[0]);
+    expect(fixture.componentInstance.selectedHero).toEqual(HEROES[0]);
+  });
 });
