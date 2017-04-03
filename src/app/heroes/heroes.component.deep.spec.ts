@@ -54,4 +54,6 @@ describe('HeroDetailComponent (deep tests)', () => {
     heroComponents[0].triggerEventHandler('delete', null);
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
   });
+
+  it('should select the hero when the hero is clicked');
 });
