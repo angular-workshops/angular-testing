@@ -6,6 +6,7 @@ import { Hero } from 'app/shared/hero';
 import { HeroSearchService } from './hero-search.service';
 
 class MockHttp {
+  constructor(private heroes: Hero[]) {}
   get() {
     // return a response object
   }
@@ -26,7 +27,7 @@ describe('HeroSearchService', () => {
       {id: 14, name: 'Celeritas', strength: 15, age: 30},
     ];
     injector = ReflectiveInjector.resolveAndCreate([
-      { provide: Http, useClass: MockHttp },
+      { provide: Http, useFactory: () => new MockHttp(heroes) },
       HeroSearchService,
     ]);
     mockHttp = injector.get(Http);
