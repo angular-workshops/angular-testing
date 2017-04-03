@@ -108,10 +108,29 @@ describe('HeroDetailComponent (shallow tests)', () => {
     });
   });
 
-   describe('clicking save', () => {
-     it(`should update the hero service`);
-     it(`should navigate back`);
-   });
+  describe('clicking save', () => {
+    let saveButton: HTMLButtonElement;
+
+    beforeEach(fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      saveButton = fixture.debugElement.queryAll(By.css('button'))[1].nativeElement;
+      spyOn(mockHeroService, 'update').and.returnValue(Promise.resolve());
+    }));
+
+    it(`should update the hero service`, () => {
+      saveButton.click();
+      expect(mockHeroService.update).toHaveBeenCalledWith(heroes[0]);
+    });
+
+    it(`should navigate back`, fakeAsync(() => {
+      spyOn(mockLocation, 'back');
+      saveButton.click();
+      tick();
+      expect(mockLocation.back).toHaveBeenCalled();
+    }));
+  });
 });
 
 function createEvent(eventName: string, bubbles = false, cancelable = false) {
