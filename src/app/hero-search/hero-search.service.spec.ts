@@ -8,7 +8,7 @@ import { HeroSearchService } from './hero-search.service';
 class MockHttp {
   constructor(private heroes: Hero[]) {}
   get() {
-    // return a response object
+    return observableOf({ json: () => ({ data: this.heroes}) });
   }
 }
 
@@ -34,6 +34,15 @@ describe('HeroSearchService', () => {
     searchService = injector.get(HeroSearchService);
   });
 
-  it('should map the response to an array of Heroes');
-  it('should make a HTTP request to `app/heroes`');
+  it('should map the response to an array of Heroes', () => {
+    let actual: Hero[];
+    searchService.search('some query').subscribe(results => actual = results);
+    expect(actual).toEqual(heroes);
+  });
+
+  it('should make a HTTP request to `app/heroes`', () => {
+    spyOn(mockHttp, 'get').and.callThrough();
+    searchService.search('some query').subscribe();
+    expect(mockHttp.get).toHaveBeenCalledWith('app/heroes/?name=some query');
+  });
 });
