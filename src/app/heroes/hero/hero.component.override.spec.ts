@@ -3,6 +3,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HeroComponent } from './hero.component';
 import { Hero } from 'app/shared/hero';
+import { AgeService } from 'app/shared/age.service';
 
 @Component({
   selector: 'app-test',
@@ -44,7 +45,26 @@ describe('HeroComponent', () => {
     TestBed.overrideComponent(TestHostComponent, {
       set: { template: `<app-hero></app-hero>` }
     });
-    fixture = TestBed.createComponent(TestHostComponent);
-    expect(() => fixture.detectChanges()).toThrowError(`Cannot read property 'id' of undefined`);
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(TestHostComponent);
+      expect(() => fixture.detectChanges()).toThrowError(`Cannot read property 'id' of undefined`);
+    });
+  }));
+
+  it('should display the age description', async(() => {
+    class MockAgeService implements AgeService {
+      describe(age: number) {
+        return 'test description';
+      }
+    }
+    TestBed.overrideComponent(HeroComponent, {
+      set: { providers: [{ provide: AgeService, useClass: MockAgeService } ] }
+    });
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(TestHostComponent);
+      fixture.componentInstance.hero = { id: 121, name: 'Mr Hero', strength: 4, age: 30 };
+      fixture.detectChanges();
+      expect(fixture.nativeElement.textContent).toContain('test description');
+    });
   }));
 });
