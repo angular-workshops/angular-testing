@@ -9,7 +9,7 @@ describe('HeroService', () => {
   let heroes: Hero[];
 
   beforeEach(() => {
-    heroes = [ {id: 2, name: 'Rubberman'}, {id: 4, name: 'Dynama'} ];
+    heroes = [ {id: 2, name: 'Rubberman', strength: 10, age: 15}, {id: 4, name: 'Dynama', strength: 4, age: 25} ];
     injector = ReflectiveInjector.resolveAndCreate([ ]);
   });
 
