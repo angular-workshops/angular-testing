@@ -3,26 +3,16 @@ import { Component } from '@angular/core';
 import { ExponentialStrengthPipe } from './exponential-strength.pipe';
 
 @Component({
-  template: '<span>strength: {{ 5 | exponentialStrength : 2 }}</span>'
+  template: '...'
 })
-class ContainerComponent {
+class TestHostComponent {
 }
 
 describe('exponential-strength.pipe', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ExponentialStrengthPipe,
-        ContainerComponent
-      ]
     });
   });
 
-  it('should show the strength', () => {
-    const fixture = TestBed.createComponent(ContainerComponent);
-    const element = fixture.nativeElement;
-    fixture.detectChanges();
-    expect(element.textContent).toContain('25');
-  });
-
+  it('should show the exponentiated strength');
 });
