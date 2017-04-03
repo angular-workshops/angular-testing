@@ -24,9 +24,20 @@ describe('HeroService', () => {
       {id: 15, name: 'Magneta', strength: 2, age: 34}
     ];
     injector = ReflectiveInjector.resolveAndCreate([
+      DashboardComponent,
+      {
+        provide: HeroService,
+        useFactory: () => new MockHeroService(heroes)
+      }
     ]);
   });
 
   describe('heroes', () => {
-    it('should contain just the first three heroes after ngOnInit');
+    it('should contain just the first three heroes after ngOnInit', fakeAsync(() => {
+      const dashboard: DashboardComponent = injector.get(DashboardComponent);
+      dashboard.ngOnInit();
+      tick();
+      expect(dashboard.heroes).toEqual([heroes[0], heroes[1], heroes[2]]);
+    }));
+  });
 });
