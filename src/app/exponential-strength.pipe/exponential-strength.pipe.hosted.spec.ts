@@ -19,8 +19,8 @@ describe('exponential-strength.pipe', () => {
   });
 
   it('should show the strength', () => {
-    let fixture = TestBed.createComponent(ContainerComponent);
-    let element = fixture.nativeElement;
+    const fixture = TestBed.createComponent(ContainerComponent);
+    const element = fixture.nativeElement;
     fixture.detectChanges();
     expect(element.textContent).toContain('25');
   });
